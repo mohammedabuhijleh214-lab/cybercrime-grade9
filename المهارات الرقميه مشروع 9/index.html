@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="تجربة تفاعلية تعليمية عن الجريمة الإلكترونية — مشروع مهارات رقمية للصف التاسع" />
+  <title>CYBERCRIME — Digital Investigation | الجريمة الإلكترونية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- ========== CINEMATIC INTRO ========== -->
+  <div id="intro" class="intro" aria-live="polite">
+    <button type="button" class="intro-skip mono" id="skip-intro" dir="ltr">SKIP INTRO</button>
+    <div class="intro__grid" aria-hidden="true"></div>
+    <div class="intro__content">
+      <p class="intro__boot mono" id="boot-line">SYSTEM INITIALIZING...</p>
+      <ul class="intro__status mono" id="status-lines" hidden></ul>
+      <div class="intro__alerts" id="intro-alerts" hidden>
+        <p class="alert-text danger glitch" id="access-denied">ACCESS DENIED</p>
+        <p class="alert-text danger-strong glitch" id="system-compromised" hidden>SYSTEM COMPROMISED</p>
+      </div>
+      <div class="intro__hook" id="intro-hook" hidden>
+        <p class="hook-q">WHAT IF THE NEXT VICTIM IS YOU?</p>
+        <h1 class="hook-title">CYBERCRIME</h1>
+        <p class="hook-sub" dir="ltr">The crime you may not see coming.</p>
+        <p class="hook-ar" dir="rtl">الجريمة التي قد لا تراها قادمة.</p>
+        <button type="button" class="btn btn--primary btn--lg" id="start-btn">
+          START INVESTIGATION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== APP SHELL ========== -->
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <div class="topbar__brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name" dir="ltr">CYBERCRIME</p>
+          <p class="brand-tag" dir="ltr">Digital Investigation · Simulation</p>
+        </div>
+      </div>
+      <div class="topbar__meta">
+        <span class="status-pill status-pill--live" dir="ltr">CASE STATUS: ACTIVE</span>
+        <span class="progress-fraction mono" id="progress-label" dir="ltr">01 / 08</span>
+      </div>
+    </header>
+
+    <nav class="progress-nav" id="progress-nav" aria-label="Lesson progress">
+      <button type="button" class="progress-nav__item is-active" data-section="0" dir="ltr"><span>01</span> INTRO</button>
+      <button type="button" class="progress-nav__item" data-section="1" dir="ltr"><span>02</span> DEFINITION</button>
+      <button type="button" class="progress-nav__item" data-section="2" dir="ltr"><span>03</span> TYPES</button>
+      <button type="button" class="progress-nav__item" data-section="3" dir="ltr"><span>04</span> DEEP DIVE</button>
+      <button type="button" class="progress-nav__item" data-section="4" dir="ltr"><span>05</span> LAW</button>
+      <button type="button" class="progress-nav__item" data-section="5" dir="ltr"><span>06</span> SAFETY</button>
+      <button type="button" class="progress-nav__item" data-section="6" dir="ltr"><span>07</span> SCENARIO</button>
+      <button type="button" class="progress-nav__item" data-section="7" dir="ltr"><span>08</span> MISSION</button>
+    </nav>
+
+    <main class="stage" id="stage">
+
+      <!-- 01 INTRO / BRIEFING -->
+      <section class="panel is-active" data-panel="0" id="panel-intro">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">MISSION BRIEFING</p>
+          <h2 class="panel-title" dir="ltr">DIGITAL INVESTIGATION TEAM</h2>
+          <p class="panel-lead ar" dir="rtl">
+            حدث اختراق رقمي وهمي في بيئة تدريبية. مهمتكم فهم ما حدث، واكتشاف نوع الجريمة، ومعرفة كيف نحمي أنفسنا.
+          </p>
+          <div class="briefing-grid">
+            <div class="glass-card">
+              <p class="mono label" dir="ltr">SIMULATION ONLY</p>
+              <p class="ar" dir="rtl">هذه محاكاة تعليمية — ليست حادثة حقيقية في مدرسة.</p>
+            </div>
+            <div class="glass-card">
+              <p class="mono label" dir="ltr">YOUR ROLE</p>
+              <p class="ar" dir="rtl">أنتم فريق تحقيق رقمي مؤقت لدرس واحد.</p>
+            </div>
+            <div class="glass-card">
+              <p class="mono label" dir="ltr">OBJECTIVE</p>
+              <p class="ar" dir="rtl">الوعي، الفهم، والقرار الآمن — لا تعليم الهجمات.</p>
+            </div>
+          </div>
+          <p class="presenter-prompt ar" dir="rtl">اسأل الصف: <em>«ما الذي تتوقعون أن تكتشفوه؟»</em></p>
+          <div class="panel-actions">
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → DEFINITION</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 DEFINITION -->
+      <section class="panel" data-panel="1" id="panel-definition">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">CASE FILE · DEFINITION</p>
+          <h2 class="panel-title" dir="ltr">WHAT IS CYBERCRIME?</h2>
+
+          <div class="definition-reveal" id="definition-reveal">
+            <button type="button" class="btn btn--ghost" id="reveal-def-btn" dir="ltr">REVEAL DEFINITION</button>
+            <div class="def-chunks" id="def-chunks" aria-live="polite">
+              <p class="def-chunk ar" data-chunk="0" dir="rtl" hidden>أي فعل</p>
+              <p class="def-chunk ar" data-chunk="1" dir="rtl" hidden>يُرتكب باستخدام وسيلة أو نظام أو شبكة إلكترونية</p>
+              <p class="def-chunk ar" data-chunk="2" dir="rtl" hidden>بصورة غير قانونية</p>
+              <p class="def-chunk ar" data-chunk="3" dir="rtl" hidden>تخالف أحكام القانون.</p>
+            </div>
+            <p class="def-full ar" id="def-full" dir="rtl" hidden>
+              الجريمة الإلكترونية هي أي فعل يُرتكب باستخدام وسيلة أو نظام أو شبكة إلكترونية بصورة غير قانونية تخالف أحكام القانون.
+            </p>
+          </div>
+
+          <div class="chain" id="crime-chain" hidden>
+            <p class="section-label" dir="ltr">ATTACK CHAIN</p>
+            <div class="chain__flow">
+              <button type="button" class="chain-node" data-chain="actor">
+                <span dir="ltr">ACTOR</span>
+                <small class="ar" dir="rtl">الجاني</small>
+              </button>
+              <span class="chain-arrow" aria-hidden="true">→</span>
+              <button type="button" class="chain-node" data-chain="tool">
+                <span dir="ltr">DIGITAL TOOL</span>
+                <small class="ar" dir="rtl">الأداة الرقمية</small>
+              </button>
+              <span class="chain-arrow" aria-hidden="true">→</span>
+              <button type="button" class="chain-node" data-chain="action">
+                <span dir="ltr">ILLEGAL ACTION</span>
+                <small class="ar" dir="rtl">فعل غير قانوني</small>
+              </button>
+              <span class="chain-arrow" aria-hidden="true">→</span>
+              <button type="button" class="chain-node" data-chain="victim">
+                <span dir="ltr">VICTIM / TARGET</span>
+                <small class="ar" dir="rtl">الضحية / الهدف</small>
+              </button>
+            </div>
+            <p class="chain-explain ar" id="chain-explain" dir="rtl">اضغط على أي عنصر لمعرفة دوره.</p>
+          </div>
+
+          <div class="compare" id="compare-block" hidden>
+            <p class="section-label" dir="ltr">TRADITIONAL CRIME vs CYBERCRIME</p>
+            <div class="compare__grid">
+              <div class="compare__side">
+                <h3 dir="ltr">TRADITIONAL</h3>
+                <ul class="compare-list ar" dir="rtl">
+                  <li><strong>البيئة:</strong> مكان مادي</li>
+                  <li><strong>الأدوات:</strong> أدوات ملموسة</li>
+                  <li><strong>الموقع:</strong> غالباً قرب الضحية</li>
+                </ul>
+              </div>
+              <div class="compare__vs mono" dir="ltr">VS</div>
+              <div class="compare__side compare__side--cyber">
+                <h3 dir="ltr">CYBER</h3>
+                <ul class="compare-list ar" dir="rtl">
+                  <li><strong>البيئة:</strong> أنظمة وشبكات رقمية</li>
+                  <li><strong>الأدوات:</strong> أجهزة وبرامج وشبكة</li>
+                  <li><strong>الموقع:</strong> قد يكون الجاني بعيداً تماماً</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → TYPES</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 SEVEN TYPES -->
+      <section class="panel" data-panel="2" id="panel-types">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">THREAT MAP · 7 CASE FILES</p>
+          <h2 class="panel-title" dir="ltr">THE 7 TYPES</h2>
+          <p class="panel-lead ar" dir="rtl">أنواع الجريمة الإلكترونية وفق درس المهارات الرقمية للصف التاسع. اضغط ملفاً لفتح الأدلة.</p>
+
+          <div class="threat-map" id="threat-map" role="list"></div>
+
+          <aside class="case-detail glass-card" id="case-detail" hidden>
+            <div class="case-detail__head">
+              <span class="threat-badge mono" id="case-id" dir="ltr">CASE-01</span>
+              <button type="button" class="icon-btn" id="close-case" aria-label="Close case">×</button>
+            </div>
+            <h3 id="case-en" dir="ltr">Hacking</h3>
+            <p class="case-ar ar" id="case-ar" dir="rtl">الاختراق</p>
+            <p class="ar" id="case-explain" dir="rtl"></p>
+            <div class="evidence-row">
+              <div>
+                <p class="mono label" dir="ltr">EXAMPLE</p>
+                <p class="ar" id="case-example" dir="rtl"></p>
+              </div>
+              <div>
+                <p class="mono label" dir="ltr">STAY SAFE</p>
+                <p class="ar" id="case-safe" dir="rtl"></p>
+              </div>
+            </div>
+            <div class="case-visual" id="case-visual" aria-hidden="true"></div>
+          </aside>
+
+          <p class="presenter-prompt ar" dir="rtl">اسأل الصف: <em>«أي نوع يبدو الأقرب لما نسمعه يومياً؟»</em></p>
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → DEEP DIVE</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 DEEP DIVE -->
+      <section class="panel" data-panel="3" id="panel-deep">
+        <div class="panel__inner panel__inner--wide">
+          <p class="eyebrow" dir="ltr">DEEP DIVE · INTERACTIVE LABS</p>
+          <h2 class="panel-title" dir="ltr">FOCUS CASES</h2>
+          <p class="panel-lead ar" dir="rtl">ثلاثة أنواع بتوضيح تفاعلي أعمق: الاختراق، التصيد، وهجمات الفدية.</p>
+
+          <div class="tabs" role="tablist" aria-label="Deep dive cases">
+            <button type="button" class="tab is-active" role="tab" aria-selected="true" data-lab="hacking" dir="ltr">A · HACKING</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-lab="phishing" dir="ltr">B · PHISHING</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-lab="ransomware" dir="ltr">C · RANSOMWARE</button>
+          </div>
+
+          <!-- HACKING LAB -->
+          <div class="lab is-active" id="lab-hacking" role="tabpanel">
+            <div class="lab__grid">
+              <div>
+                <h3 dir="ltr">Unauthorized Access</h3>
+                <p class="ar" dir="rtl">الاختراق هو الوصول غير المصرح به إلى نظام أو شبكة أو بيانات.</p>
+                <div class="sys-flow mono" id="hack-flow" dir="ltr">
+                  <div class="sys-node">USER</div>
+                  <div class="sys-line"></div>
+                  <div class="sys-node">LOGIN</div>
+                  <div class="sys-line"></div>
+                  <div class="sys-node">SECURITY CHECK</div>
+                  <div class="sys-line"></div>
+                  <div class="sys-node sys-node--target">SYSTEM</div>
+                </div>
+                <button type="button" class="btn btn--warn" id="simulate-hack" dir="ltr">SIMULATE UNAUTHORIZED ACCESS</button>
+                <div class="hack-result" id="hack-result" hidden>
+                  <p class="mono danger" dir="ltr">⚠ UNAUTHORIZED ACCESS · DATA AT RISK</p>
+                  <p class="ar" dir="rtl">محاكاة فقط: الوصول غير المصرح به يعرّض البيانات للخطر.</p>
+                </div>
+              </div>
+              <div class="glass-card defense-stack">
+                <p class="mono label" dir="ltr">DEFENSE LAYERS</p>
+                <ul class="defense-list" dir="ltr">
+                  <li><strong>Strong Password</strong><span class="ar" dir="rtl">كلمة مرور قوية تصعّب التخمين.</span></li>
+                  <li><strong>2FA</strong><span class="ar" dir="rtl">طبقة تحقق إضافية من الهوية.</span></li>
+                  <li><strong>Updates</strong><span class="ar" dir="rtl">التحديثات تسد ثغرات معروفة.</span></li>
+                  <li><strong>Security Controls</strong><span class="ar" dir="rtl">ضوابط أمان تقلل فرص الوصول غير المصرح.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PHISHING LAB -->
+          <div class="lab" id="lab-phishing" role="tabpanel" hidden>
+            <div class="lab__grid lab__grid--phish">
+              <div class="phone-sim" aria-label="Simulated messaging app">
+                <div class="phone-sim__bar">
+                  <span dir="ltr">School Support</span>
+                  <small dir="ltr">SIMULATION</small>
+                </div>
+                <div class="phone-sim__chat" id="phish-chat">
+                  <div class="bubble bubble--in ar" dir="rtl">مرحباً، حسابك المدرسي يحتاج تحققاً عاجلاً.</div>
+                </div>
+                <div class="phone-sim__actions">
+                  <button type="button" class="btn btn--sm" id="phish-next" dir="ltr">NEXT STEP</button>
+                </div>
+              </div>
+              <div>
+                <p class="section-label" dir="ltr">ATTACK FLOW</p>
+                <ol class="attack-flow" id="attack-flow" dir="ltr"></ol>
+                <div class="red-flags" id="red-flags" hidden>
+                  <h4 dir="ltr">RED FLAGS</h4>
+                  <ul class="flag-list" dir="ltr">
+                    <li>Urgency</li>
+                    <li>Strange link</li>
+                    <li>Sensitive info request</li>
+                    <li>Fake identity</li>
+                    <li>Suspicious wording</li>
+                  </ul>
+                  <div class="safe-action">
+                    <p class="mono" dir="ltr">SAFE ACTION</p>
+                    <p class="safe-steps" dir="ltr">Stop → Check → Don't Click → Report</p>
+                    <p class="ar" dir="rtl">توقف ← تحقق ← لا تضغط ← أبلغ</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RANSOMWARE LAB -->
+          <div class="lab" id="lab-ransomware" role="tabpanel" hidden>
+            <div class="lab__grid">
+              <div class="desktop-sim" id="ransom-desktop">
+                <div class="desktop-sim__title mono" dir="ltr">STUDENT PC · SIMULATION</div>
+                <ul class="file-list" id="file-list">
+                  <li>📄 Homework.docx</li>
+                  <li>🖼 Photos</li>
+                  <li>📁 School Projects</li>
+                </ul>
+                <div class="ransom-warn" id="ransom-warn" hidden>
+                  <p class="mono" dir="ltr">[WARNING]</p>
+                  <h3 dir="ltr">YOUR FILES ARE LOCKED</h3>
+                  <p class="ar" dir="rtl">محاكاة تعليمية — ليست برمجية خبيثة حقيقية.</p>
+                </div>
+              </div>
+              <div>
+                <ol class="ransom-steps mono" dir="ltr">
+                  <li>Files</li>
+                  <li>↓ Encryption / Lock</li>
+                  <li>↓ Access Lost</li>
+                  <li>↓ Demand</li>
+                </ol>
+                <p class="ar" dir="rtl">هجمات الفدية تقفل الملفات وتطلب مقابلاً مقابل استعادتها. لا نعلّم طريقة الهجوم — نعلّم المفهوم والحماية.</p>
+                <button type="button" class="btn btn--warn" id="simulate-ransom" dir="ltr">RUN LOCK SIMULATION</button>
+                <button type="button" class="btn btn--ghost" id="reset-ransom" dir="ltr" hidden>RESET FILES</button>
+                <div class="glass-card" style="margin-top:1rem">
+                  <p class="mono label" dir="ltr">PREVENTION</p>
+                  <p dir="ltr">Backups + Updates + Safe Downloads + Awareness</p>
+                  <p class="ar" dir="rtl">نسخ احتياطية + تحديثات + تحميل آمن + وعي</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → LAW</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 LAW -->
+      <section class="panel" data-panel="4" id="panel-law">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">THE LAW · JORDAN</p>
+          <h2 class="panel-title" dir="ltr">JORDAN CYBERCRIME LAW</h2>
+          <p class="panel-lead ar" dir="rtl">
+            الدول تضع قوانين لمواجهة الجريمة الإلكترونية. في الأردن صدر
+            <strong>قانون الجرائم الإلكترونية رقم (17) لسنة 2023</strong>
+            ونُشر في الجريدة الرسمية.
+          </p>
+
+          <div class="law-facts">
+            <div class="glass-card law-fact">
+              <p class="mono label" dir="ltr">LAW</p>
+              <p dir="ltr">No. 17 of 2023</p>
+              <p class="ar" dir="rtl">قانون رقم 17 لسنة 2023</p>
+            </div>
+            <div class="glass-card law-fact">
+              <p class="mono label" dir="ltr">ARTICLES</p>
+              <p class="big-num" dir="ltr">41</p>
+              <p class="ar" dir="rtl">يضم 41 مادة</p>
+            </div>
+            <div class="glass-card law-fact">
+              <p class="mono label" dir="ltr">GAZETTE</p>
+              <p dir="ltr">Issue 5874</p>
+              <p class="ar" dir="rtl">الجريدة الرسمية · 13/8/2023</p>
+            </div>
+          </div>
+
+          <div class="law-categories">
+            <p class="section-label" dir="ltr">EXAMPLE CATEGORIES (EDUCATIONAL)</p>
+            <div class="law-cats-grid">
+              <div class="glass-card">
+                <h4 dir="ltr">Unauthorized Access</h4>
+                <p class="ar" dir="rtl">الدخول أو الوصول غير المصرح به إلى أنظمة أو شبكات معلوماتية.</p>
+              </div>
+              <div class="glass-card">
+                <h4 dir="ltr">Misuse of Systems</h4>
+                <p class="ar" dir="rtl">إساءة استخدام أنظمة المعلومات أو برامج تضر بالبيانات أو تعطّل الأنظمة.</p>
+              </div>
+              <div class="glass-card">
+                <h4 dir="ltr">Impersonation / Fake Presence</h4>
+                <p class="ar" dir="rtl">إنشاء حسابات أو مواقع منسوبة زوراً لأشخاص أو جهات.</p>
+              </div>
+              <div class="glass-card">
+                <h4 dir="ltr">Electronic Fraud</h4>
+                <p class="ar" dir="rtl">الاحتيال عبر الشبكة أو وسائل تقنية المعلومات للاستيلاء على مال الغير.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="source-box">
+            <p class="mono label" dir="ltr">SOURCE</p>
+            <p class="ar" dir="rtl">الجريدة الرسمية الأردنية / رئاسة الوزراء · ديوان التشريع والرأي</p>
+            <div class="source-actions">
+              <a class="btn btn--ghost btn--sm" href="https://pm.gov.jo/Ar/Pages/NewsPaperDetails/5874" target="_blank" rel="noopener noreferrer" dir="ltr">View Official Gazette</a>
+              <a class="btn btn--ghost btn--sm" href="https://www.lob.gov.jo/?lang=ar&v=1#!/LegislationDetails?LegislationID=3398&LegislationType=2&isMod=false" target="_blank" rel="noopener noreferrer" dir="ltr">View LOB Source</a>
+            </div>
+            <p class="disclaimer ar" dir="rtl">القوانين قد تتغير، والمعلومات هنا لأغراض تعليمية وليست استشارة قانونية.</p>
+          </div>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → SAFETY</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 SAFETY -->
+      <section class="panel" data-panel="5" id="panel-safety">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">DEFENSE PROTOCOL</p>
+          <h2 class="panel-title" dir="ltr">STAY SAFE</h2>
+          <p class="panel-lead ar" dir="rtl">درع رقمي حول المستخدم — اضغط أي طبقة لمعرفة دورها.</p>
+
+          <div class="shield-stage">
+            <div class="shield-core" aria-hidden="true">
+              <div class="shield-ring"></div>
+              <div class="shield-user">
+                <span dir="ltr">YOU</span>
+              </div>
+            </div>
+            <div class="shield-points" id="shield-points"></div>
+          </div>
+          <p class="shield-explain ar" id="shield-explain" dir="rtl">اختر طبقة حماية لعرض الشرح.</p>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next>CONTINUE → SCENARIO</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 SCENARIO -->
+      <section class="panel" data-panel="6" id="panel-scenario">
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">REAL WORLD SCENARIO</p>
+          <h2 class="panel-title" dir="ltr">COULD YOU SPOT IT?</h2>
+          <p class="panel-lead ar" dir="rtl">مشهد قصير تفاعلي — محاكاة كاملة، لا روابط حقيقية.</p>
+
+          <div class="scenario-stage glass-card" id="scenario-stage">
+            <p class="mono scenario-tag" id="scene-tag" dir="ltr">SCENE 01</p>
+            <div class="scenario-visual" id="scene-visual">
+              <div class="mini-msg">
+                <p class="mini-msg__from" dir="ltr">Secure Delivery</p>
+                <p class="mini-msg__body ar" id="scene-text" dir="rtl">وصلتك رسالة بخصوص طرد مدرسي.</p>
+              </div>
+            </div>
+            <div class="scenario-controls" id="scenario-controls">
+              <button type="button" class="btn btn--primary" id="scene-next" dir="ltr">NEXT SCENE</button>
+            </div>
+            <div class="decision" id="scene-decision" hidden>
+              <h3 dir="ltr">WHAT WOULD YOU DO?</h3>
+              <p class="ar" dir="rtl">ماذا ستفعل؟</p>
+              <div class="decision-btns">
+                <button type="button" class="btn btn--danger" data-choice="open" dir="ltr">OPEN</button>
+                <button type="button" class="btn btn--primary" data-choice="check" dir="ltr">CHECK</button>
+                <button type="button" class="btn btn--success" data-choice="report" dir="ltr">REPORT</button>
+                <button type="button" class="btn btn--ghost" data-choice="ignore" dir="ltr">IGNORE</button>
+              </div>
+              <p class="ar decision-feedback" id="decision-feedback" dir="rtl" hidden></p>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+            <button type="button" class="btn btn--primary" data-next id="to-mission" disabled>CONTINUE → FINAL MISSION</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 FINAL MISSION / QUIZ -->
+      <section class="panel" data-panel="7" id="panel-mission">
+        <div class="panel__inner">
+          <div id="quiz-intro">
+            <p class="eyebrow" dir="ltr">FINAL MISSION</p>
+            <h2 class="panel-title" dir="ltr">CAN YOU STAY SAFE?</h2>
+            <p class="panel-lead ar" dir="rtl">10 تحديات سريعة من محتوى الدرس. لا ضغط زائد — ركّز على الأدلة.</p>
+            <button type="button" class="btn btn--primary btn--lg" id="start-quiz" dir="ltr">START MISSION</button>
+          </div>
+
+          <div id="quiz-play" hidden>
+            <div class="quiz-meta">
+              <span class="mono" id="quiz-progress" dir="ltr">Q 1 / 10</span>
+              <span class="mono" id="quiz-score-live" dir="ltr">SCORE 0</span>
+            </div>
+            <div class="quiz-card glass-card" id="quiz-card">
+              <p class="mono label" id="quiz-type" dir="ltr">MULTIPLE CHOICE</p>
+              <h3 id="quiz-question" dir="ltr"></h3>
+              <p class="ar quiz-ar" id="quiz-ar" dir="rtl"></p>
+              <div class="quiz-options" id="quiz-options"></div>
+              <p class="quiz-feedback ar" id="quiz-feedback" dir="rtl" hidden></p>
+              <button type="button" class="btn btn--primary" id="quiz-next" dir="ltr" hidden>NEXT CHALLENGE</button>
+            </div>
+          </div>
+
+          <div id="quiz-results" hidden>
+            <p class="eyebrow" dir="ltr">CYBER AWARENESS SCORE</p>
+            <p class="score-big mono" id="final-percent" dir="ltr">0%</p>
+            <div class="score-grid">
+              <div class="glass-card">
+                <p class="mono label" dir="ltr">Threats Identified</p>
+                <p class="mono" id="stat-threats" dir="ltr">0/10</p>
+              </div>
+              <div class="glass-card">
+                <p class="mono label" dir="ltr">Safe Decisions</p>
+                <p class="mono" id="stat-safe" dir="ltr">—</p>
+              </div>
+              <div class="glass-card">
+                <p class="mono label" dir="ltr">Final Level</p>
+                <p class="mono" id="stat-level" dir="ltr">—</p>
+              </div>
+            </div>
+            <button type="button" class="btn btn--primary btn--lg" id="show-ending" dir="ltr">COMPLETE MISSION</button>
+          </div>
+
+          <div class="panel-actions" id="mission-nav">
+            <button type="button" class="btn btn--ghost" data-prev>← BACK</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENDING + SOURCES (overlay panels) -->
+      <section class="panel" data-panel="8" id="panel-ending" hidden>
+        <div class="panel__inner ending-inner">
+          <p class="ending-line mono" id="ending-1" dir="ltr" hidden>MISSION COMPLETE</p>
+          <p class="ending-line" id="ending-2" dir="ltr" hidden>You are no longer the easiest target.</p>
+          <h2 class="ending-title" id="ending-3" dir="ltr" hidden>THINK BEFORE YOU CLICK.</h2>
+          <p class="ending-ar ar" id="ending-4" dir="rtl" hidden>الوعي الرقمي هو خط دفاعك الأول.</p>
+          <button type="button" class="btn btn--ghost" id="show-sources" dir="ltr" hidden>VIEW SOURCES</button>
+          <button type="button" class="btn btn--primary" id="restart-btn" dir="ltr" hidden>RESTART EXPERIENCE</button>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="9" id="panel-sources" hidden>
+        <div class="panel__inner">
+          <p class="eyebrow" dir="ltr">EVIDENCE LOCKER</p>
+          <h2 class="panel-title" dir="ltr">SOURCES</h2>
+          <ul class="sources-list ar" dir="rtl">
+            <li>
+              <strong>المنهاج:</strong> محتوى درس المهارات الرقمية للصف التاسع — الجريمة الإلكترونية وأنواعها وطرق الوقاية.
+            </li>
+            <li>
+              <strong>القانون:</strong> قانون الجرائم الإلكترونية رقم (17) لسنة 2023، الجريدة الرسمية العدد 5874 (13/8/2023) —
+              <a href="https://pm.gov.jo/Ar/Pages/NewsPaperDetails/5874" target="_blank" rel="noopener noreferrer">pm.gov.jo</a>
+              ·
+              <a href="https://www.lob.gov.jo/?lang=ar&v=1#!/LegislationDetails?LegislationID=3398&LegislationType=2&isMod=false" target="_blank" rel="noopener noreferrer">ديوان التشريع والرأي</a>
+            </li>
+            <li>
+              <strong>ملاحظة:</strong> جميع المشاهد والروابط والواجهات في هذا الموقع محاكاة تعليمية آمنة.
+            </li>
+          </ul>
+          <div class="panel-actions">
+            <button type="button" class="btn btn--primary" id="back-ending" dir="ltr">← BACK TO ENDING</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
